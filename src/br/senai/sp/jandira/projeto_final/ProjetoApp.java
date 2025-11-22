@@ -4,10 +4,12 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -36,7 +38,7 @@ public class ProjetoApp extends Application {
 
         // tamanho do stage (tela/janela)
         stage.setWidth(600);
-        stage.setHeight(600);
+        stage.setHeight(700);
 
         // componente principal da tela
         VBox root = new VBox();
@@ -61,11 +63,11 @@ public class ProjetoApp extends Application {
         //--------------------------------------------------------------------------------//
 
 
-        // fomulário do estacionamento do veículo
+        //              fomulário do estacionamento do veículo              //
         GridPane gridFormulario = new GridPane();
         gridFormulario.setHgap(15);
         gridFormulario.setVgap(15);
-        gridFormulario.setPadding(new Insets(20, 10, 10, 20));
+        gridFormulario.setPadding(new Insets(20, 10, 10, 120));
 
         Label labelProprietario = new Label("Nome do proprietário(a):");
         labelProprietario.setStyle(
@@ -124,10 +126,30 @@ public class ProjetoApp extends Application {
         gridFormulario.add(textDataSaida, 1, 3);
         gridFormulario.add(labelHoraSaida, 0, 4);
         gridFormulario.add(textHoraSaida, 1, 4);
+        //------------------------------------------------------------------//
 
 
+        // Botões
+        HBox boxBotoes = new HBox();
+        boxBotoes.setSpacing(10);
+        boxBotoes.setPadding(new Insets(10, 20, 0, 200));
+        Button btnCalcular = new Button("Calcular");
+        btnCalcular.setPrefWidth(80);
+        btnCalcular.setPrefHeight(40);
+        btnCalcular.setOnAction(e -> {
+            calcularEstadia();
+        });
+
+        Button btnLimpar = new Button("Limpar");
+        btnLimpar.setPrefWidth(80);
+        btnLimpar.setPrefHeight(40);
+        btnLimpar.setOnAction(e -> {
+
+        });
 
 
+        // adicionar os botões na boxBotoes
+        boxBotoes.getChildren().addAll(btnCalcular, btnLimpar);
 
 
 
@@ -135,6 +157,7 @@ public class ProjetoApp extends Application {
         //    adicionar componentes no root    //
         root.getChildren().add(header);
         root.getChildren().add(gridFormulario);
+        root.getChildren().addAll(boxBotoes);
         //-------------------------------------//
 
         stage.setScene(scene);
@@ -142,4 +165,7 @@ public class ProjetoApp extends Application {
         stage.show();
 
     }
+
+    public void calcularEstadia() {}
+
 }
