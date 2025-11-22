@@ -25,6 +25,8 @@ public class ProjetoApp extends Application {
     TextField textHoraEntrada;
     TextField textDataSaida;
     TextField textHoraSaida;
+    TextField tfProprietarioResultado;
+    Button btnLimpar;
 
 
     @Override
@@ -133,9 +135,11 @@ public class ProjetoApp extends Application {
         btnCalcular.setPrefHeight(60);
         btnCalcular.setOnAction(e -> {
             calcularEstadia();
+            tfProprietarioResultado.setText(textProprietario.getText());
+            btnLimpar.requestFocus();
         });
 
-        Button btnLimpar = new Button("Limpar");
+        btnLimpar = new Button("Limpar");
         btnLimpar.setPrefWidth(100);
         btnLimpar.setPrefHeight(60);
         btnLimpar.setOnAction(e -> {
@@ -177,18 +181,17 @@ public class ProjetoApp extends Application {
         // Labels
         Label lblProprietario = new Label("Proprietário(a):");
         Label lblValor = new Label("Valor a ser pago:");
-        Label lblPlaca = new Label("Placa:");
 
         // Campos
-        TextField tfProprietario = new TextField();
+        tfProprietarioResultado = new TextField();
+        tfProprietarioResultado.setEditable(false);
         TextField tfValor = new TextField();
 
-        tfProprietario.setPrefWidth(200);
+        tfProprietarioResultado.setPrefWidth(100);
 
         // Inserindo no grid
         grid.add(lblProprietario, 0, 0);
-        grid.add(tfProprietario, 1, 0);
-
+        grid.add(tfProprietarioResultado, 1, 0);
         grid.add(lblValor, 0, 1);
         grid.add(tfValor, 1, 1);
 
@@ -214,6 +217,8 @@ public class ProjetoApp extends Application {
 
     }
 
+
+    // parte lógica do projeto
     public void calcularEstadia() {
 
 
