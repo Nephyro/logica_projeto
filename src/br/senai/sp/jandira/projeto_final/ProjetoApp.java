@@ -8,10 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -38,21 +35,19 @@ public class ProjetoApp extends Application {
 
         // tamanho do stage (tela/janela)
         stage.setWidth(600);
-        stage.setHeight(700);
+        stage.setHeight(665);
 
         // componente principal da tela
         VBox root = new VBox();
         Scene scene = new Scene(root);
 
 
-        //                     cabeçalho da tela                         //
+        //                               cabeçalho da tela                                 //
         VBox header = new VBox();
         header.setStyle("-fx-padding: 10;-fx-background-color: #0d8da1");
-        //--------------------------------------------------------------//
+        header.setAlignment(Pos.CENTER);
 
 
-
-        //                               label do header                                  //
         Label labelTitulo = new Label("Lógica Projeto Integrador");
         labelTitulo.setStyle("-fx-text-fill: red;-fx-font-size: 40;-fx-font-weight: bold");
         Label labelSubtitulo = new Label("Modelo temporário");
@@ -131,25 +126,77 @@ public class ProjetoApp extends Application {
 
         // Botões
         HBox boxBotoes = new HBox();
-        boxBotoes.setSpacing(10);
-        boxBotoes.setPadding(new Insets(10, 20, 0, 200));
+        boxBotoes.setSpacing(20);
+        boxBotoes.setPadding(new Insets(30, 20, 50, 170));
         Button btnCalcular = new Button("Calcular");
-        btnCalcular.setPrefWidth(80);
-        btnCalcular.setPrefHeight(40);
+        btnCalcular.setPrefWidth(100);
+        btnCalcular.setPrefHeight(60);
         btnCalcular.setOnAction(e -> {
             calcularEstadia();
         });
 
         Button btnLimpar = new Button("Limpar");
-        btnLimpar.setPrefWidth(80);
-        btnLimpar.setPrefHeight(40);
+        btnLimpar.setPrefWidth(100);
+        btnLimpar.setPrefHeight(60);
         btnLimpar.setOnAction(e -> {
 
         });
 
-
-        // adicionar os botões na boxBotoes
         boxBotoes.getChildren().addAll(btnCalcular, btnLimpar);
+
+
+        // --- Caixa principal do resultado ---
+        VBox boxResultado = new VBox();
+        boxResultado.setPadding(new Insets(200, 10, 10, 120));
+        boxResultado.setStyle(
+                "-fx-background-color: #d6d1d1;" +
+                        "-fx-padding: 20;" +
+                        "-fx-spacing: 15;" +
+                        "-fx-border-radius: 10;" +
+                        "-fx-background-radius: 10;"
+        );
+
+        // --- Título ---
+        Label tituloResultado = new Label("Resultado");
+        tituloResultado.setStyle(
+                "-fx-font-size: 20px;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-background-color: #6a6a6a;" +
+                        "-fx-text-fill: white;" +
+                        "-fx-padding: 10;" +
+                        "-fx-background-radius: 10;" +
+                        "-fx-alignment: center;"
+        );
+        tituloResultado.setMaxWidth(Double.MAX_VALUE);
+
+        // --- Grid com informações ---
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+
+        // Labels
+        Label lblProprietario = new Label("Proprietário(a):");
+        Label lblValor = new Label("Valor a ser pago:");
+        Label lblPlaca = new Label("Placa:");
+
+        // Campos
+        TextField tfProprietario = new TextField();
+        TextField tfValor = new TextField();
+
+        tfProprietario.setPrefWidth(200);
+
+        // Inserindo no grid
+        grid.add(lblProprietario, 0, 0);
+        grid.add(tfProprietario, 1, 0);
+
+        grid.add(lblValor, 0, 1);
+        grid.add(tfValor, 1, 1);
+
+
+        // Monta a caixa
+        boxResultado.getChildren().addAll(tituloResultado, grid);
+
+        StackPane.setAlignment(boxResultado, Pos.BOTTOM_RIGHT);
 
 
 
@@ -158,6 +205,7 @@ public class ProjetoApp extends Application {
         root.getChildren().add(header);
         root.getChildren().add(gridFormulario);
         root.getChildren().addAll(boxBotoes);
+        root.getChildren().addAll(boxResultado);
         //-------------------------------------//
 
         stage.setScene(scene);
@@ -166,6 +214,10 @@ public class ProjetoApp extends Application {
 
     }
 
-    public void calcularEstadia() {}
+    public void calcularEstadia() {
+
+
+
+    }
 
 }
