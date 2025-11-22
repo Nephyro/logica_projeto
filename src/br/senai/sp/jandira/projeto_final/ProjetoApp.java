@@ -9,8 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -82,6 +80,31 @@ public class ProjetoApp extends Application {
         textDataEntrada = new TextField();
         textDataEntrada.setPromptText("           dd/mm/aa");
 
+        // formatação para (dd/mm/aa)
+        textDataEntrada.setTextFormatter(new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+
+            // remover o que não for número
+            newText = newText.replaceAll("[^0-9]", "");
+
+            // limitar em 6 dígitos (ddMMaa
+            if (newText.length() > 6) {
+                return null;
+            }
+
+            // adicionar máscara automaticamente
+            if (newText.length() >= 5) {
+                newText = newText.replaceFirst("(\\d{2})(\\d{2})(\\d+)", "$1/$2/$3");
+            } else if (newText.length() >= 3) {
+                newText = newText.replaceFirst("(\\d{2})(\\d+)", "$1/$2");
+            }
+
+            change.setText(newText);
+            change.setRange(0, change.getControlText().length());
+
+            return change;
+        }));
+
 
         Label labelHoraEntrada = new Label("Hora de entrada:");
         labelHoraEntrada.setStyle(
@@ -91,6 +114,7 @@ public class ProjetoApp extends Application {
         textHoraEntrada = new TextField();
 
 
+
         Label labelDataSaida = new Label("Data de saída:");
         labelDataSaida.setStyle(
                 "-fx-font-size: 15;" +
@@ -98,6 +122,31 @@ public class ProjetoApp extends Application {
         );
         textDataSaida = new TextField();
         textDataSaida.setPromptText("           dd/mm/aa");
+
+        // formatação em data (dd/mm/aa)
+        textDataSaida.setTextFormatter(new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+
+            // remover o que não for número
+            newText = newText.replaceAll("[^0-9]", "");
+
+            // limitar em 6 dígitos (ddMMaa
+            if (newText.length() > 6) {
+                return null;
+            }
+
+            // adicionar máscara automaticamente
+            if (newText.length() >= 5) {
+                newText = newText.replaceFirst("(\\d{2})(\\d{2})(\\d+)", "$1/$2/$3");
+            } else if (newText.length() >= 3) {
+                newText = newText.replaceFirst("(\\d{2})(\\d+)", "$1/$2");
+            }
+
+            change.setText(newText);
+            change.setRange(0, change.getControlText().length());
+
+            return change;
+        }));
 
 
 
@@ -125,8 +174,9 @@ public class ProjetoApp extends Application {
         gridFormulario.add(textHoraSaida, 1, 4);
         //------------------------------------------------------------------//
 
+        //=================================================================//
 
-        // Botões
+        //                           Botões                             //
         HBox boxBotoes = new HBox();
         boxBotoes.setSpacing(20);
         boxBotoes.setPadding(new Insets(30, 20, 50, 170));
@@ -134,7 +184,7 @@ public class ProjetoApp extends Application {
         btnCalcular.setPrefWidth(100);
         btnCalcular.setPrefHeight(60);
         btnCalcular.setOnAction(e -> {
-            calcularEstadia();
+
             tfProprietarioResultado.setText(textProprietario.getText());
             btnLimpar.requestFocus();
         });
@@ -147,6 +197,7 @@ public class ProjetoApp extends Application {
         });
 
         boxBotoes.getChildren().addAll(btnCalcular, btnLimpar);
+        //--------------------------------------------------------------//
 
 
         // --- Caixa principal do resultado ---
@@ -218,11 +269,12 @@ public class ProjetoApp extends Application {
     }
 
 
-    // parte lógica do projeto
-    public void calcularEstadia() {
 
-
-
+    //
     }
 
-}
+
+
+
+
+
